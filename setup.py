@@ -11,4 +11,7 @@ setup(
   download_url='https://github.com/biplap-sarkar/pylimit/archive/v0.1.7.tar.gz',
   keywords=['rate limiting', 'throttle', 'redis'],
   classifiers=[],
+  install_requires=[
+            'redis-py-cluster'
+        ]
 )
