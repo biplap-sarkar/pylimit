@@ -2,7 +2,7 @@
 A distributed rate limiting library for python using leaky bucket algorithm and Redis
 
 # Prerequisites
-This library makes use of Redis and needs it as a prerequisite. Redis sentinel is also supported.
+This library makes use of Redis and needs it as a prerequisite. Redis sentinel and Redis cluster is also supported.
 Make sure that Redis server is running before using this library
 
 # Installation
