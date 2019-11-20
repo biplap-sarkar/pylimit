@@ -7,7 +7,8 @@ import time
 class TestPyLimit(unittest.TestCase):
     def test_exception(self):
         limit = PyRateLimit()
-        self.assertRaises(PyRateLimitException, limit.attempt, 'test_namespace')
+        self.assertRaises(PyRateLimitException, limit.attempt,
+                          'test_namespace')
 
     def test_throttle(self):
         PyRateLimit.init(redis_host="localhost", redis_port=6379)
