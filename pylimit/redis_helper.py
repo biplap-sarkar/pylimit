@@ -1,6 +1,6 @@
 import redis
 from redis.sentinel import Sentinel
-from redis.client import StrictPipeline
+from redis.client import Pipeline
 import redis.client
 
 
@@ -48,11 +48,11 @@ class RedisHelper(object):
         self.connection = connection
         return connection
 
-    def get_atomic_connection(self) -> StrictPipeline:
+    def get_atomic_connection(self) -> Pipeline:
         """
-        Gets a StrictPipeline for normal redis or for redis sentinel based upon
+        Gets a Pipeline for normal redis or for redis sentinel based upon
          redis mode in configuration
 
-        :return: Returns a StrictPipeline object
+        :return: Returns a Pipeline object
         """
         return self.get_connection().pipeline(True)
