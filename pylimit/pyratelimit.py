@@ -51,7 +51,8 @@ class PyRateLimit(object):
                 sentinel_service=redis_sentinel_service,
                 password=redis_password)
 
-    def __can_attempt(self, namespace: str, add_attempt=True) -> bool:
+    def __can_attempt(self, namespace: str, add_attempt=True,
+                      timestamp=None) -> bool:
         """
         Checks if a namespace is rate limited or not with including/excluding
          the current call
@@ -62,6 +63,10 @@ class PyRateLimit(object):
         :param add_attempt: Boolean value indicating if the current call
         should be considered as an attempt or not
         :type add_attempt: bool
+
+        :param timestamp: Fix timestamp when we want to check the same flow
+        many times and avoid to sum for these cases
+        :type timestamp: int
 
         :return: Returns true if attempt can go ahead under current rate
         limiting rules, false otherwise
@@ -75,6 +80,10 @@ class PyRateLimit(object):
 
         current_time = int(round(time.time() * 1000000))
         old_time_limit = current_time - (self.period * 1000000)
+
+        if timestamp:
+            current_time = timestamp
+
         connection.zremrangebyscore(namespace, 0, old_time_limit)
 
         connection.expire(namespace, self.period)
@@ -98,7 +107,7 @@ class PyRateLimit(object):
 
         return can_attempt
 
-    def attempt(self, namespace: str):
+    def attempt(self, namespace: str, timestamp=None):
         """
         Records an attempt and returns true of false depending on whether
         attempt can go through or not
@@ -106,10 +115,14 @@ class PyRateLimit(object):
         :param namespace: Rate limiting namespace
         :type namespace: str
 
+        :param timestamp: Fix timestamp when we want to check the same flow
+        many times and avoid to sum for these cases
+        :type timestamp: int
+
         :return: Returns true if attempt can go ahead under current rate
         limiting rules, false otherwise
         """
-        return self.__can_attempt(namespace=namespace)
+        return self.__can_attempt(namespace=namespace, timestamp=timestamp)
 
     def is_rate_limited(self, namespace: str) -> bool:
         """
