@@ -81,7 +81,10 @@ class PyRateLimit(object):
 
         if add_attempt:
             current_count = 0
-            connection.zadd(namespace, current_time, current_time)
+            mapping = {
+                current_time: current_time
+            }
+            connection.zadd(namespace, mapping)
         else:
             current_count = 1   # initialize at 1 to compensate the case that this attempt is not getting counted
 
