@@ -27,9 +27,8 @@ PyRateLimit.init(redis_host="localhost", redis_port=6379)
 
 3.) Create a rate limit namespace
 ```
-limit = PyRateLimit()
-limit.create(60,                    # rate limit period in seconds
-             100)                   # no of attempts in the time period
+limit = PyRateLimit(period=60,      # rate limit period in seconds
+                    limit=100)      # no of attempts in the time period
 ```
 
 4.) Record ant attempt and check if it is allowed or not
