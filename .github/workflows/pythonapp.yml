@@ -26,6 +26,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Setup redis for running tests
       uses: shogo82148/actions-setup-redis@v1.0.1
+      with:
+        redis-version: "4.4.4"
     - name: Test with nosetests
       run: |
         nosetests
