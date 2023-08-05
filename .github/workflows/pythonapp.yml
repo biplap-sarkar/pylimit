@@ -25,9 +25,9 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Setup redis for running tests
-      uses: shogo82148/actions-setup-redis@v1.0.1
+      uses: shogo82148/actions-setup-redis@v1.26.1
       with:
-        redis-version: '4.x'
+        redis-version: '4.0'
     - name: Test with nosetests
       run: |
         nosetests
