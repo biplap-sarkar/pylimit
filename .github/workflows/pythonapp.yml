@@ -27,7 +27,7 @@ jobs:
     - name: Setup redis for running tests
       uses: shogo82148/actions-setup-redis@v1.0.1
       with:
-        redis-version: "4.4.4"
+        redis-version: '4.x'
     - name: Test with nosetests
       run: |
         nosetests
